@@ -68,4 +68,21 @@ class AuthControllerTest extends TestCase
                      'token_type'
                  ]);
     }
+
+    public function test_logout()
+    {
+        $user = User::factory()->create([
+            'email' => 'johndoe@example.com',
+            'password' => bcrypt('password123')
+        ]);
+
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->postJson('/api/logout');
+
+        $response->assertStatus(200)
+                 ->assertJson(['message' => 'Successfully logged out']);
+    }
 }
