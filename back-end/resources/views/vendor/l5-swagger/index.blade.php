@@ -24,6 +24,10 @@
       margin:0;
       background: #fafafa;
     }
+
+    .swagger-ui .topbar {
+        display: none;
+    }
     </style>
     @if(config('l5-swagger.defaults.ui.display.dark_mode'))
         <style>
