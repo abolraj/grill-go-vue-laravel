@@ -5,11 +5,31 @@ namespace App\Http\Controllers;
 use App\Models\Food;
 use App\Http\Requests\StoreFoodRequest;
 use App\Http\Requests\UpdateFoodRequest;
+use Illuminate\Http\Request;
 
 class FoodController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * @OA\Get(
+     *     path="/foods",
+     *     tags={"Foods"},
+     *     operationId="getFoods",
+     *     summary="Get a list of foods",
+     *     description="Returns a list of all food items",
+     *     security={{"bearerAuth":{}}},
+     *     @OA\Response(
+     *         response=200,
+     *         description="A list of foods",
+     *         @OA\JsonContent(
+     *             type="array",
+     *             @OA\Items(ref="#/components/schemas/Food")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Bad request"
+     *     )
+     * )
      */
     public function index()
     {
@@ -18,7 +38,32 @@ class FoodController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * @OA\Post(
+     *     path="/foods",
+     *     tags={"Foods"},
+     *     operationId="storeFood",
+     *     summary="Create a new food item",
+     *     description="Stores a new food item",
+     *     security={{"bearerAuth":{}}},
+     *     @OA\RequestBody(
+     *         description="Food item details",
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/Food")
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Food created successfully",
+     *         @OA\JsonContent(ref="#/components/schemas/Food")
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Bad request"
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Validation error"
+     *     )
+     * )
      */
     public function store(StoreFoodRequest $request)
     {
@@ -27,7 +72,30 @@ class FoodController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * @OA\Get(
+     *     path="/foods/{id}",
+     *     tags={"Foods"},
+     *     operationId="getFood",
+     *     summary="Get a food item",
+     *     description="Returns a single food item by ID",
+     *     security={{"bearerAuth":{}}},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="ID of the food item",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="A single food item",
+     *         @OA\JsonContent(ref="#/components/schemas/Food")
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Food item not found"
+     *     )
+     * )
      */
     public function show(Food $food)
     {
@@ -35,7 +103,39 @@ class FoodController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * @OA\Put(
+     *     path="/foods/{id}",
+     *     tags={"Foods"},
+     *     operationId="updateFood",
+     *     summary="Update a food item",
+     *     description="Updates the details of an existing food item",
+     *     security={{"bearerAuth":{}}},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="ID of the food item",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\RequestBody(
+     *         description="Updated food item details",
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/Food")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Food updated successfully",
+     *         @OA\JsonContent(ref="#/components/schemas/Food")
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Food item not found"
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Validation error"
+     *     )
+     * )
      */
     public function update(UpdateFoodRequest $request, Food $food)
     {
@@ -44,7 +144,29 @@ class FoodController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * @OA\Delete(
+     *     path="/foods/{id}",
+     *     tags={"Foods"},
+     *     operationId="deleteFood",
+     *     summary="Delete a food item",
+     *     description="Removes an existing food item",
+     *     security={{"bearerAuth":{}}},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="ID of the food item",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=204,
+     *         description="Food deleted successfully"
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Food item not found"
+     *     )
+     * )
      */
     public function destroy(Food $food)
     {
