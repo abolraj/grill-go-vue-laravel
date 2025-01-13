@@ -1,4 +1,4 @@
-# Grill Go (Back-end|API) 😋
+# Grill Go - Backend API 😋
 
 Welcome to **Grill Go**! This is the back-end API for our exciting project. Grill Go aims to bring delicious grilled food to your doorstep with a seamless and efficient experience. The back-end is developed using Laravel, a powerful PHP framework.
 
