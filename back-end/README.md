@@ -1,4 +1,4 @@
-# Grill Go 😋
+# Grill Go (Back-end|API) 😋
 
 Welcome to **Grill Go**! This is the back-end API for our exciting project. Grill Go aims to bring delicious grilled food to your doorstep with a seamless and efficient experience. The back-end is developed using Laravel, a powerful PHP framework.
 
@@ -29,7 +29,7 @@ To get started with the project, follow these steps:
 2. **Navigate to the project directory**:
 
    ```sh
-   cd grill-go
+   cd grill-go-vue-laravel
    cd back-end
    ```
 
@@ -142,13 +142,13 @@ Here's an organized and colorful overview of the key routes in the Grill Go API:
 ### FoodController
 
 ```plaintext
-| Method     | URI                | Action      | Description                              |
-|------------|--------------------|-------------|------------------------------------------|
-| GET\|HEAD  | api/foods          | index       | Retrieve a list of all food items        |
-| POST       | api/foods          | store       | Create a new food item                   |
-| GET\|HEAD  | api/foods/\{food\} | show        | Retrieve details of a specific food item |
-| PUT\|PATCH | api/foods/\{food\} | update      | Update a specific food item              |
-| DELETE     | api/foods/\{food\} | destroy     | Delete a specific food item              |
+| Method     | URI                 | Action      | Description                              |
+|------------|---------------------|-------------|------------------------------------------|
+| GET\|HEAD  | api/foods           | index       | Retrieve a list of all food items        |
+| POST       | api/foods           | store       | Create a new food item                   |
+| GET\|HEAD  | api/foods/{food_id} | show        | Retrieve details of a specific food item |
+| PUT\|PATCH | api/foods/{food_id} | update      | Update a specific food item              |
+| DELETE     | api/foods/{food_id} | destroy     | Delete a specific food item              |
 ```
 
 ### OrderController
@@ -158,20 +158,20 @@ Here's an organized and colorful overview of the key routes in the Grill Go API:
 |------------|---------------------|------------|--------------------------------------|
 | GET\|HEAD  | api/orders          | index      | Retrieve a list of all orders        |
 | POST       | api/orders          | store      | Create a new order                   |
-| GET\|HEAD  | api/orders/\{order\}| show       | Retrieve details of a specific order |
-| PUT\|PATCH | api/orders/\{order\}| update     | Update a specific order              |
-| DELETE     | api/orders/\{order\}| destroy    | Delete a specific order              |
+| GET\|HEAD  | api/orders/{order_id}| show       | Retrieve details of a specific order |
+| PUT\|PATCH | api/orders/{order_id}| update     | Update a specific order              |
+| DELETE     | api/orders/{order_id}| destroy    | Delete a specific order              |
 ```
 
 ### UserController
 
 ```plaintext
-| Method     | URI                | Action      | Description                         |
-|------------|--------------------|-------------|-------------------------------------|
-| GET\|HEAD  | api/users          | index       | Retrieve a list of all users        |
-| GET\|HEAD  | api/users/\{user\} | show        | Retrieve details of a specific user |
-| PUT\|PATCH | api/users/\{user\} | update      | Update a specific user              |
-| DELETE     | api/users/\{user\} | destroy     | Delete a specific user              |
+| Method     | URI                 | Action      | Description                         |
+|------------|---------------------|-------------|-------------------------------------|
+| GET\|HEAD  | api/users           | index       | Retrieve a list of all users        |
+| GET\|HEAD  | api/users/{user_id} | show        | Retrieve details of a specific user |
+| PUT\|PATCH | api/users/{user_id} | update      | Update a specific user              |
+| DELETE     | api/users/{user_id} | destroy     | Delete a specific user              |
 ```
 
 ### SwaggerController
@@ -228,4 +228,4 @@ Made with ❤️ by
 
 ## ❤️ Developed with Love
 
-Crafted with passion and dedication by [**Abolfazl (Me)**](https://github.com/abolraj). Thank you for exploring **Grill Go!** We hope it brings delight to your culinary adventures.
+Backend crafted with passion and dedication by [**Abolfazl (Me)**](https://github.com/abolraj). Thank you for exploring **Grill Go!** We hope it brings delight to your culinary adventures.
