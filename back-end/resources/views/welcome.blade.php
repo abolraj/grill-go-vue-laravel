@@ -11,12 +11,15 @@
 <body>
     <header>
         Laravel API
+        <br>
+        <a href="{{route('l5-swagger.default.api')}}">
+            API Documentation
+        </a>
     </header>
     <main>
         <pre>
             You can use this API for your web application.
             It has no front-end except API documentation for improve performance.
-            
             <a href="https://github.com/abolraj/grill-go-vue-laravel">Github : grill-go-vue-laravel</a>
             Thank you to support !
         </pre>
