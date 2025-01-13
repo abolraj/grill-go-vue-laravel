@@ -142,44 +142,44 @@ Here's an organized and colorful overview of the key routes in the Grill Go API:
 ### FoodController
 
 ```plaintext
-| Method     | URI                 | Action      | Description                              |
-|------------|---------------------|-------------|------------------------------------------|
-| GET\|HEAD  | api/foods           | index       | Retrieve a list of all food items        |
-| POST       | api/foods           | store       | Create a new food item                   |
-| GET\|HEAD  | api/foods/{food_id} | show        | Retrieve details of a specific food item |
-| PUT\|PATCH | api/foods/{food_id} | update      | Update a specific food item              |
-| DELETE     | api/foods/{food_id} | destroy     | Delete a specific food item              |
+| Method    | URI                 | Action      | Description                              |
+|-----------|---------------------|-------------|------------------------------------------|
+| GET|HEAD  | api/foods           | index       | Retrieve a list of all food items        |
+| POST      | api/foods           | store       | Create a new food item                   |
+| GET|HEAD  | api/foods/{food_id} | show        | Retrieve details of a specific food item |
+| PUT|PATCH | api/foods/{food_id} | update      | Update a specific food item              |
+| DELETE    | api/foods/{food_id} | destroy     | Delete a specific food item              |
 ```
 
 ### OrderController
 
 ```plaintext
-| Method     | URI                 | Action     | Description                          |
-|------------|---------------------|------------|--------------------------------------|
-| GET\|HEAD  | api/orders          | index      | Retrieve a list of all orders        |
-| POST       | api/orders          | store      | Create a new order                   |
-| GET\|HEAD  | api/orders/{order_id}| show       | Retrieve details of a specific order |
-| PUT\|PATCH | api/orders/{order_id}| update     | Update a specific order              |
-| DELETE     | api/orders/{order_id}| destroy    | Delete a specific order              |
+| Method    | URI                 | Action     | Description                          |
+|-----------|---------------------|------------|--------------------------------------|
+| GET|HEAD  | api/orders          | index      | Retrieve a list of all orders        |
+| POST      | api/orders          | store      | Create a new order                   |
+| GET|HEAD  | api/orders/{order_id}| show       | Retrieve details of a specific order |
+| PUT|PATCH | api/orders/{order_id}| update     | Update a specific order              |
+| DELETE    | api/orders/{order_id}| destroy    | Delete a specific order              |
 ```
 
 ### UserController
 
 ```plaintext
-| Method     | URI                 | Action      | Description                         |
-|------------|---------------------|-------------|-------------------------------------|
-| GET\|HEAD  | api/users           | index       | Retrieve a list of all users        |
-| GET\|HEAD  | api/users/{user_id} | show        | Retrieve details of a specific user |
-| PUT\|PATCH | api/users/{user_id} | update      | Update a specific user              |
-| DELETE     | api/users/{user_id} | destroy     | Delete a specific user              |
+| Method    | URI                 | Action      | Description                         |
+|-----------|---------------------|-------------|-------------------------------------|
+| GET|HEAD  | api/users           | index       | Retrieve a list of all users        |
+| GET|HEAD  | api/users/{user_id} | show        | Retrieve details of a specific user |
+| PUT|PATCH | api/users/{user_id} | update      | Update a specific user              |
+| DELETE    | api/users/{user_id} | destroy     | Delete a specific user              |
 ```
 
 ### SwaggerController
 
 ```plaintext
-| Method     | URI                   | Action    | Description                                 |
-|------------|-----------------------|-----------|---------------------------------------------|
-| GET\|HEAD  | api/documentation     | api       | API documentation provided by Swagger       |
+| Method    | URI                   | Action    | Description                                 |
+|-----------|-----------------------|-----------|---------------------------------------------|
+| GET|HEAD  | api/documentation     | api       | API documentation provided by Swagger       |
 ```
 
 ## 📝 API Documentation
