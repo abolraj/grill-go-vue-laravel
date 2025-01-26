@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -43,6 +44,18 @@ use Laravel\Sanctum\HasApiTokens;
  *         example="New York, USA"
  *     ),
  *     @OA\Property(
+ *         property="role",
+ *         type="string",
+ *         description="Role of the user",
+ *         example="Manager"
+ *     ),
+ *     @OA\Property(
+ *         property="avatar",
+ *         type="integer",
+ *         description="Avatar of the user (0 = no avatar,1,2,3,4)",
+ *         example=2
+ *     ),
+ *     @OA\Property(
  *         property="password",
  *         type="string",
  *         format="password",
@@ -73,6 +86,8 @@ class User extends Authenticatable
         'email',
         'location',
         'password',
+        'role',
+        'avatar',
     ];
 
     protected $hidden = [
@@ -86,5 +101,10 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function orders():HasMany
+    {
+        return $this->hasMany(Order::class);
     }
 }
