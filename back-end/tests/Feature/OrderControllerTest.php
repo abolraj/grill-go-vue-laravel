@@ -37,12 +37,10 @@ class OrderControllerTest extends TestCase
         $user = User::factory()->create();
         $food = Food::factory()->create();
         $orderData = [
-            'total_number' => 5,
-            'total_price' => 1500,
             'status' => 1,
             'duration' => 30,
             'customer_id' => $user->id,
-            'food_id' => $food->id,
+            'note' => 'Add a sauce',
         ];
 
         $response = $this->postJson('/api/orders', $orderData);
@@ -69,10 +67,9 @@ class OrderControllerTest extends TestCase
     {
         $order = Order::factory()->create();
         $updatedData = [
-            'total_number' => 10,
-            'total_price' => 3000,
             'status' => 2,
             'duration' => 60,
+            'note' => 'Add a lemonade'
         ];
 
         $response = $this->putJson('/api/orders/' . $order->id, $updatedData);
