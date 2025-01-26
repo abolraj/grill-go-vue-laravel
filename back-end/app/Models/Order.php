@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * @OA\Schema(
@@ -15,19 +16,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  *         type="integer",
  *         description="Order ID",
  *         example=1
- *     ),
- *     @OA\Property(
- *         property="total_number",
- *         type="integer",
- *         description="Total number of items",
- *         example=3
- *     ),
- *     @OA\Property(
- *         property="total_price",
- *         type="number",
- *         format="float",
- *         description="Total price of the order",
- *         example=29.99
  *     ),
  *     @OA\Property(
  *         property="status",
@@ -52,6 +40,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  *         type="integer",
  *         description="ID of the food item ordered",
  *         example=2
+ *     ),
+ *     @OA\Property(
+ *         property="note",
+ *         type="integer",
+ *         description="Notes for the order",
+ *         example=2
  *     )
  * )
  */
@@ -60,12 +54,11 @@ class Order extends Model
     use HasFactory;
 
     protected $fillable = [
-        'total_number',
-        'total_price',
         'status',
         'duration',
         'customer_id',
         'food_id',
+        'note',
     ];
 
     public function customer(): BelongsTo
@@ -73,8 +66,8 @@ class Order extends Model
         return $this->belongsTo(User::class, 'customer_id', 'id');
     }
 
-    public function food(): BelongsTo
+    public function foods(): BelongsToMany
     {
-        return $this->belongsTo(Food::class, 'food_id', 'id');
+        return $this->belongsToMany(Food::class, 'orders_foods', 'order_id', 'food_id')->withPivot('number');
     }
 }
