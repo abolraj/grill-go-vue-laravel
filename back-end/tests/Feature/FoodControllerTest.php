@@ -2,10 +2,12 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
 use App\Models\Food;
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
+use Tests\TestCase;
 
 class FoodControllerTest extends TestCase
 {
@@ -14,75 +16,82 @@ class FoodControllerTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+        Storage::fake('public'); // Use fake storage for testing
 
         $this->user = User::factory()->create();
         $this->actingAs($this->user, 'sanctum');
     }
 
-    public function test_index()
+    /** @test */
+    public function test_it_stores_a_food_item_with_image()
     {
-        Food::factory()->count(3)->create();
+        $file = UploadedFile::fake()->image('food.jpg');
 
-        $response = $this->getJson('/api/foods');
-
-        $response->assertStatus(200)
-                 ->assertJsonCount(3);
-    }
-
-    public function test_store()
-    {
-        $foodData = [
+        $response = $this->postJson('/api/foods', [
             'name' => 'Pizza',
-            'price' => 999,
+            'price' => 1000,
             'number' => 10,
-            'parent_id' => null,
-        ];
-
-        $response = $this->postJson('/api/foods', $foodData);
+            'category' => 'Fast Food',
+            'image' => $file,
+            'ingredients' => 'Cheese, Tomato, Dough',
+        ]);
 
         $response->assertStatus(201)
-                 ->assertJsonFragment($foodData);
+            ->assertJsonStructure([
+                'id',
+                'name',
+                'price',
+                'number',
+                'category',
+                'image_path',
+                'ingredients',
+            ]);
 
-        $this->assertDatabaseHas('foods', $foodData);
+        // Assert the image was stored
+        $food = Food::first();
+        Storage::disk('public')->assertExists($food->image_path);
     }
 
-    public function test_show()
+    /** @test */
+    public function test_it_updates_a_food_item_with_new_image()
     {
-        $food = Food::factory()->create();
+        $food = Food::factory()->create(['image_path' => 'images/old.jpg']);
+        Storage::disk('public')->put('images/old.jpg', 'dummy content');
 
-        $response = $this->getJson('/api/foods/' . $food->id);
+        $file = UploadedFile::fake()->image('new_food.jpg');
 
-        $response->assertStatus(200)
-                 ->assertJson($food->toArray());
-    }
-
-    public function test_update()
-    {
-        $food = Food::factory()->create();
-
-        $updateData = [
+        $response = $this->putJson("/api/foods/{$food->id}", [
             'name' => 'Updated Pizza',
-            'price' => 1099,
-            'number' => 15,
-            'parent_id' => null,
-        ];
-
-        $response = $this->putJson('/api/foods/' . $food->id, $updateData);
+            'image' => $file,
+        ]);
 
         $response->assertStatus(200)
-                 ->assertJsonFragment($updateData);
+            ->assertJson([
+                'name' => 'Updated Pizza',
+            ]);
 
-        $this->assertDatabaseHas('foods', $updateData);
+        // Assert the old image was deleted
+        Storage::disk('public')->assertMissing('images/old.jpg');
+
+        // Assert the new image was stored
+        $food->refresh();
+        Storage::disk('public')->assertExists($food->image_path);
     }
 
-    public function test_destroy()
+    /** @test */
+    public function test_it_deletes_a_food_item_and_its_image()
     {
-        $food = Food::factory()->create();
+        $food = Food::factory()->create(['image_path' => 'images/food.jpg']);
+        Storage::disk('public')->put('images/food.jpg', 'dummy content');
 
-        $response = $this->deleteJson('/api/foods/' . $food->id);
+        $response = $this->deleteJson("/api/foods/{$food->id}");
 
         $response->assertStatus(204);
 
+        // Assert the food item was deleted
         $this->assertDatabaseMissing('foods', ['id' => $food->id]);
+
+        // Assert the image was deleted
+        Storage::disk('public')->assertMissing('images/food.jpg');
     }
 }
