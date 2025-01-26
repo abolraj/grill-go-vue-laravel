@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreOrderRequest extends FormRequest
+class StoreOrderFoodRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -17,15 +17,13 @@ class StoreOrderRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
      */
     public function rules(): array
     {
         return [
-            'status' => 'required|integer|in:0,1,2,3',
-            'duration' => 'required|integer|min:0',
-            'customer_id' => 'required|exists:users,id',
-            'note' => 'nullable|string', 
+            'food_id' => 'required|exists:foods,id',
+            'number' => 'required|integer|min:1',
         ];
     }
 }

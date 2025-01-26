@@ -27,6 +27,8 @@ class UpdateUserRequest extends FormRequest
             'username' => 'nullable|string|max:255|unique:users',
             'location' => 'nullable|string|max:255',
             'password' => 'nullable|string|min:8',
+            'avatar' => 'nullable|integer|min:0|max:4',
+            'role' => 'nullable|string|max:255',
         ];
     }
 }

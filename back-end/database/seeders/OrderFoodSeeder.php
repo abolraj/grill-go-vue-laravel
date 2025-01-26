@@ -2,19 +2,19 @@
 
 namespace Database\Seeders;
 
-use App\Models\Order;
+use App\Models\OrderFood;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class OrderSeeder extends Seeder
+class OrderFoodSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Order::factory()
-            ->count(50)
+        OrderFood::factory()
+            ->count(100)
             ->create();
     }
 }

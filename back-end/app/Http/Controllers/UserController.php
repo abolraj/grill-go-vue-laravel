@@ -33,6 +33,8 @@ class UserController extends Controller
      *                     "username": "johndoe",
      *                     "email": "johndoe@example.com",
      *                     "location": "New York, USA",
+     *                     "role": "Manager",
+     *                     "avatar": 2,
      *                     "email_verified_at": "2023-01-01T00:00:00Z"
      *                 }
      *             },
@@ -74,6 +76,8 @@ class UserController extends Controller
      *                 "username": "johndoe",
      *                 "email": "johndoe@example.com",
      *                 "location": "New York, USA",
+     *                 "role": "Manager",
+     *                 "avatar": 2,
      *                 "email_verified_at": "2023-01-01T00:00:00Z"
      *             },
      *             summary="Single user example"
@@ -115,6 +119,8 @@ class UserController extends Controller
      *                 "username": "johndoe_updated",
      *                 "email": "johndoe_updated@example.com",
      *                 "location": "New York, USA",
+     *                 "role": "Manager",
+     *                 "avatar": 1,
      *                 "password": "new_password123"
      *             },
      *             summary="Update user request example"
@@ -132,6 +138,8 @@ class UserController extends Controller
      *                 "username": "johndoe_updated",
      *                 "email": "johndoe_updated@example.com",
      *                 "location": "New York, USA",
+     *                 "role": "Manager",
+     *                 "avatar": 3,
      *                 "email_verified_at": "2023-01-01T00:00:00Z"
      *             },
      *             summary="Updated user example"
@@ -191,4 +199,3 @@ class UserController extends Controller
         return response()->json(null, 204);
     }
 }
-?>

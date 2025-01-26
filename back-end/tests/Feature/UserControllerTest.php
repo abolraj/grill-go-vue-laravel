@@ -48,6 +48,8 @@ class UserControllerTest extends TestCase
             'email' => 'updatedemail@example.com',
             'username' => 'updatedusername',
             'location' => 'Updated Location',
+            'role' => 'Manager',
+            'avatar' => 2,
             'password' => 'newpassword123',
         ];
 
@@ -59,6 +61,8 @@ class UserControllerTest extends TestCase
                      'email' => 'updatedemail@example.com',
                      'username' => 'updatedusername',
                      'location' => 'Updated Location',
+                     'role' => 'Manager',
+                     'avatar' => 2,         
                  ]);
 
         // Verify password is hashed

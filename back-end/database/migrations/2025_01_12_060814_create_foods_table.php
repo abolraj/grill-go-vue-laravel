@@ -16,7 +16,9 @@ return new class extends Migration
             $table->string('name');
             $table->unsignedBigInteger('price');
             $table->integer('number');
-            $table->foreignId('parent_id')->nullable()->constrained('foods', 'id')->cascadeOnDelete();
+            $table->string('category')->nullable();
+            $table->text('image_path')->nullable();
+            $table->text('ingredients')->nullable();
             $table->timestamps();
         });
     }

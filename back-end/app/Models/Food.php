@@ -36,10 +36,22 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  *         example=50
  *     ),
  *     @OA\Property(
- *         property="parent_id",
- *         type="integer",
+ *         property="category",
+ *         type="string",
+ *         description="Category of the food item",
+ *         example="Pizza"
+ *     ),
+ *     @OA\Property(
+ *         property="image_path",
+ *         type="string",
+ *         description="Image path of the food item",
+ *         example="/images/dosijpddpjd8w-wihdpo.jpg"
+ *     ),
+ *     @OA\Property(
+ *         property="ingredients",
+ *         type="string",
  *         description="ID of the parent food item",
- *         example=0
+ *         example="1. 1 dish food 2. ..."
  *     )
  * )
  */
@@ -52,15 +64,9 @@ class Food extends Model
         'name',
         'price',
         'number',
-        'parent_id',
+        'category',
+        'image_path',
+        'ingredients',
     ];
 
-    /**
-     * Return the parent food if exists
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function food(): BelongsTo
-    {
-        return $this->belongsTo(Food::class, 'parent_id', 'id');
-    }
 }

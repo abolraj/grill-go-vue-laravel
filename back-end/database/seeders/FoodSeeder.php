@@ -14,7 +14,7 @@ class FoodSeeder extends Seeder
     public function run(): void
     {
         Food::factory()
-            ->count(100)
+            ->count(20)
             ->create();
     }
 }

@@ -25,7 +25,9 @@ class StoreFoodRequest extends FormRequest
             'name' => 'required|string|min:3',
             'price' => 'required|integer|min:0',
             'number' => 'required|integer|min:0',
-            'parent_id' => 'nullable|integer|exists:foods,id',
+            'category' => 'nullable|string|min:3|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // 2MB max
+            'ingredients' => 'nullable|string',
         ];
     }
 }
