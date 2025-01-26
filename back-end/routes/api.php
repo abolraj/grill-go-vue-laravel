@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FoodController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OrderFoodController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 
@@ -15,4 +16,5 @@ Route::middleware('auth:sanctum')->group(function(){
         ->except(['store']);
     Route::apiResource('foods', FoodController::class);
     Route::apiResource('orders', OrderController::class);
+    Route::apiResource('orders.foods', OrderFoodController::class);
 });
