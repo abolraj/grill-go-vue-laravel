@@ -16,6 +16,8 @@ class AuthControllerTest extends TestCase
             'email' => 'johndoe@example.com',
             'username' => 'johndoe',
             'location' => 'New York',
+            'role' => 'Manager',
+            'avatar' => 2,
             'password' => 'password123'
         ]);
 
