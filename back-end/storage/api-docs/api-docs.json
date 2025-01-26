@@ -44,6 +44,14 @@
                                         "type": "string",
                                         "example": "New York, USA"
                                     },
+                                    "role": {
+                                        "type": "string",
+                                        "example": "Manager"
+                                    },
+                                    "avatar": {
+                                        "type": "integer",
+                                        "example": 2
+                                    },
                                     "password": {
                                         "type": "string",
                                         "format": "password",
@@ -246,9 +254,40 @@
                     "description": "Food item details",
                     "required": true,
                     "content": {
-                        "application/json": {
+                        "multipart/form-data": {
                             "schema": {
-                                "$ref": "#/components/schemas/Food"
+                                "required": [
+                                    "name",
+                                    "price",
+                                    "number"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Pizza"
+                                    },
+                                    "price": {
+                                        "type": "integer",
+                                        "example": 1000
+                                    },
+                                    "number": {
+                                        "type": "integer",
+                                        "example": 10
+                                    },
+                                    "category": {
+                                        "type": "string",
+                                        "example": "Fast Food"
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "ingredients": {
+                                        "type": "string",
+                                        "example": "Cheese, Tomato, Dough"
+                                    }
+                                },
+                                "type": "object"
                             }
                         }
                     }
@@ -340,9 +379,35 @@
                     "description": "Updated food item details",
                     "required": true,
                     "content": {
-                        "application/json": {
+                        "multipart/form-data": {
                             "schema": {
-                                "$ref": "#/components/schemas/Food"
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Pizza"
+                                    },
+                                    "price": {
+                                        "type": "integer",
+                                        "example": 1000
+                                    },
+                                    "number": {
+                                        "type": "integer",
+                                        "example": 10
+                                    },
+                                    "category": {
+                                        "type": "string",
+                                        "example": "Fast Food"
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "ingredients": {
+                                        "type": "string",
+                                        "example": "Cheese, Tomato, Dough"
+                                    }
+                                },
+                                "type": "object"
                             }
                         }
                     }
@@ -605,6 +670,301 @@
                 ]
             }
         },
+        "/orders/{order}/foods": {
+            "get": {
+                "tags": [
+                    "Order Foods"
+                ],
+                "summary": "List all foods in an order",
+                "description": "Retrieve a list of all foods associated with a specific order.",
+                "operationId": "321e6a00b9a493ef4f193b11ce39f2fc",
+                "parameters": [
+                    {
+                        "name": "order",
+                        "in": "path",
+                        "description": "The ID of the order",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A list of foods in the order",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/OrderFood"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Order Foods"
+                ],
+                "summary": "Add a food item to an order",
+                "description": "Add a new food item to a specific order with the quantity.",
+                "operationId": "9fc2e3ce4ca05a4e65ff29204421e711",
+                "parameters": [
+                    {
+                        "name": "order",
+                        "in": "path",
+                        "description": "The ID of the order",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "food_id",
+                                    "number"
+                                ],
+                                "properties": {
+                                    "food_id": {
+                                        "description": "The ID of the food item to add to the order",
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "number": {
+                                        "description": "The quantity of the food item to add",
+                                        "type": "integer",
+                                        "example": 2
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Food item added to the order successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Food added to order successfully"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/OrderFood"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/orders/{order}/foods/{food}": {
+            "get": {
+                "tags": [
+                    "Order Foods"
+                ],
+                "summary": "Get a specific food item in an order",
+                "description": "Retrieve details of a specific food item in a specific order.",
+                "operationId": "4ea57fdfa8333e5fe6677103ee56f4db",
+                "parameters": [
+                    {
+                        "name": "order",
+                        "in": "path",
+                        "description": "The ID of the order",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    },
+                    {
+                        "name": "food",
+                        "in": "path",
+                        "description": "The ID of the food item",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Details of the food item in the order",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/OrderFood"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Food item not found in the order",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Food not found in this order"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Order Foods"
+                ],
+                "summary": "Update a food item in an order",
+                "description": "Update the quantity of a specific food item in a specific order.",
+                "operationId": "bc745b6c6cde5bd3530138943735cd62",
+                "parameters": [
+                    {
+                        "name": "order",
+                        "in": "path",
+                        "description": "The ID of the order",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    },
+                    {
+                        "name": "food",
+                        "in": "path",
+                        "description": "The ID of the food item",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "number"
+                                ],
+                                "properties": {
+                                    "number": {
+                                        "description": "The new quantity of the food item in the order",
+                                        "type": "integer",
+                                        "example": 3
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Food item updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Food item updated successfully"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/OrderFood"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Order Foods"
+                ],
+                "summary": "Remove a food item from an order",
+                "description": "Remove a specific food item from a specific order.",
+                "operationId": "6f0b4b4aefa7fd7845c9c136055cb932",
+                "parameters": [
+                    {
+                        "name": "order",
+                        "in": "path",
+                        "description": "The ID of the order",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    },
+                    {
+                        "name": "food",
+                        "in": "path",
+                        "description": "The ID of the food item",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Food item removed from the order successfully"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/users": {
             "get": {
                 "tags": [
@@ -760,6 +1120,59 @@
     },
     "components": {
         "schemas": {
+            "OrderFood": {
+                "properties": {
+                    "id": {
+                        "description": "The ID of the food item",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "description": "The name of the food item",
+                        "type": "string",
+                        "example": "Pizza"
+                    },
+                    "price": {
+                        "description": "The price of the food item",
+                        "type": "integer",
+                        "example": 1000
+                    },
+                    "number": {
+                        "description": "The quantity of the food item",
+                        "type": "integer",
+                        "example": 2
+                    },
+                    "category": {
+                        "description": "The category of the food item",
+                        "type": "string",
+                        "example": "Italian",
+                        "nullable": true
+                    },
+                    "image_path": {
+                        "description": "The path to the image of the food item",
+                        "type": "string",
+                        "example": "images/pizza.jpg",
+                        "nullable": true
+                    },
+                    "ingredients": {
+                        "description": "The ingredients of the food item",
+                        "type": "string",
+                        "example": "Cheese, Tomato, Basil",
+                        "nullable": true
+                    },
+                    "pivot": {
+                        "properties": {
+                            "number": {
+                                "description": "The quantity of the food item in the order",
+                                "type": "integer",
+                                "example": 2
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            },
             "Food": {
                 "required": [
                     "name",
@@ -788,10 +1201,20 @@
                         "type": "integer",
                         "example": 50
                     },
-                    "parent_id": {
+                    "category": {
+                        "description": "Category of the food item",
+                        "type": "string",
+                        "example": "Pizza"
+                    },
+                    "image_path": {
+                        "description": "Image path of the food item",
+                        "type": "string",
+                        "example": "/images/dosijpddpjd8w-wihdpo.jpg"
+                    },
+                    "ingredients": {
                         "description": "ID of the parent food item",
-                        "type": "integer",
-                        "example": 0
+                        "type": "string",
+                        "example": "1. 1 dish food 2. ..."
                     }
                 },
                 "type": "object"
@@ -811,17 +1234,6 @@
                         "type": "integer",
                         "example": 1
                     },
-                    "total_number": {
-                        "description": "Total number of items",
-                        "type": "integer",
-                        "example": 3
-                    },
-                    "total_price": {
-                        "description": "Total price of the order",
-                        "type": "number",
-                        "format": "float",
-                        "example": 29.99
-                    },
                     "status": {
                         "description": "Order status",
                         "type": "string",
@@ -839,6 +1251,11 @@
                     },
                     "food_id": {
                         "description": "ID of the food item ordered",
+                        "type": "integer",
+                        "example": 2
+                    },
+                    "note": {
+                        "description": "Notes for the order",
                         "type": "integer",
                         "example": 2
                     }
@@ -878,6 +1295,16 @@
                         "description": "Location of the user",
                         "type": "string",
                         "example": "New York, USA"
+                    },
+                    "role": {
+                        "description": "Role of the user",
+                        "type": "string",
+                        "example": "Manager"
+                    },
+                    "avatar": {
+                        "description": "Avatar of the user (0 = no avatar,1,2,3,4)",
+                        "type": "integer",
+                        "example": 2
                     },
                     "password": {
                         "description": "Password",
@@ -919,6 +1346,10 @@
         {
             "name": "Orders",
             "description": "Orders"
+        },
+        {
+            "name": "Order Foods",
+            "description": "Order Foods"
         },
         {
             "name": "Users",
