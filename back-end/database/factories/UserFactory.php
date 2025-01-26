@@ -28,6 +28,8 @@ class UserFactory extends Factory
             'email' => fake()->unique()->safeEmail(),
             'username' => fake()->unique()->userName(),
             'location' => fake()->address(),
+            'role' => fake()->jobTitle(),
+            'avatar' => fake()->numberBetween(0,4),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
         ];
@@ -40,6 +42,8 @@ class UserFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'email_verified_at' => null,
+            'role' => $this->faker->jobTitle(),
+            'avatar' => $this->faker->numberBetween(0, 4),
         ]);
     }
 }
