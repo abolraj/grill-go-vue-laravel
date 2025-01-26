@@ -18,6 +18,8 @@ class RegisterRequest extends FormRequest
             'username' => 'required|string|max:255|unique:users',
             'location' => 'required|string|max:255',
             'password' => 'required|string|min:8',
+            'avatar' => 'required|integer|min:0|max:4',
+            'role' => 'nullable|string|max:255',
         ];
     }
 }
