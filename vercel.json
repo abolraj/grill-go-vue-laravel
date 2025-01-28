@@ -13,6 +13,12 @@
         }
     ],
     "env": {
+        "DB_CONNECTION": "pgsql",
+        "DB_HOST": "ep-frosty-rain-a6v1mzbl-pooler.us-west-2.aws.neon.tech",
+        "DB_DATABASE": "neondb",
+        "DB_USERNAME": "neondb_owner",
+        "DB_PASSWORD": "Lm4rM1SdJEHI",
+        "DB_PORT": "5432",
         "APP_NAME": "GrillGO",
         "APP_ENV": "production",
         "APP_DEBUG": "true",
